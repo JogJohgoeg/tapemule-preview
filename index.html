@@ -3,12 +3,17 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- 隔离框（「运行」）里的页面没法被禁止把自己跳转到外部地址（CSP 的 navigate-to 没有浏览器实现）。
+         但嵌套框的导航要受**父页面**的 frame-src 检查：这里设成 'none'，框里的页面一跳到外部地址就被浏览器拒绝（Chrome 实测会触发 frame-src 违例，请求发出前就被拦）。
+         about:srcdoc 的初次加载不受它限制，所以「运行」照常。整个应用只有 app-frame.tsx 一处用 iframe（frame-guard.test.ts 守着）。
+         这只是缓解，不是保证：别的浏览器行为可能不同，所以界面仍然写明别在里面输入敏感内容。 -->
+    <meta http-equiv="Content-Security-Policy" content="frame-src 'none'" />
     <title>TapeMule</title>
     <meta name="description" content="TapeMule：电路容器上的电骡式群。清单在 DeWEB，信令在 TapeSend，分片按 SHA-256 验收。" />
     <meta name="theme-color" content="#121614" />
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-    <script type="module" crossorigin src="./assets/index-BNaiuB19.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-BftC4GP1.css">
+    <script type="module" crossorigin src="/tapemule-preview/assets/index-B0AFAfL_.js"></script>
+    <link rel="stylesheet" crossorigin href="/tapemule-preview/assets/index-BcwtR7uX.css">
   </head>
   <body class="bg-bg font-sans text-fg">
     <div id="root"></div>
